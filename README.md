@@ -9,11 +9,15 @@ and leave useful context for future humans and AI agents.
 This repository is the central index for the Aetox skill family. Each major
 skill lives in its own repository.
 
+Core search terms: AI agent skills, Codex skills, architecture mapping,
+software architecture documentation, AI agent handoff, existing system mapping,
+raw idea to architecture proposal, and documentation architecture.
+
 ## Current Skills
 
 | Skill | Use when | Repository | Status |
 | --- | --- | --- | --- |
-| Senior Architect Agent | Existing systems, architecture mapping, boundaries, risks, Mermaid diagrams, and AI handoff. | [senior-architect-agent](https://github.com/aetox-skills/senior-architect-agent) | v1.0.0+ |
+| Senior Architect Agent | AI architecture skill for existing system mapping, software architecture documentation, boundaries, risks, Mermaid diagrams, and AI agent handoff. | [senior-architect-agent](https://github.com/aetox-skills/senior-architect-agent) | v1.1.0+ |
 | Idea To Architecture Agent | Raw ideas, product concepts, feature requests, and business goals need reviewable architecture proposals. | [idea-to-architecture-agent](https://github.com/aetox-skills/idea-to-architecture-agent) | v0.1.0+ |
 | DocStruct | Project documentation needs clear ownership, one source of truth, less duplication, and lower token cost. | [docstruct](https://github.com/aetox-skills/docstruct) | v0.2.0+ |
 
