@@ -6,4 +6,6 @@ Each file in this directory introduces one skill and links to its full repositor
 
 ## Available Skills
 
-* [DocStruct](docstruct.md)
+- [Senior Architect Agent](senior-architect-agent.md)
+- [Idea To Architecture Agent](idea-to-architecture-agent.md)
+- [DocStruct](docstruct.md)

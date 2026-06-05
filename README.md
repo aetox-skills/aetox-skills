@@ -1,210 +1,89 @@
 # Aetox Skills
 
-Practical AI agent skills for building, documenting, and automating software systems.
+Aetox Skills is a public catalog of AI agent skills for software builders.
 
-Aetox Skills is a growing collection of open-source skills created under the Aetox project.
-Each skill is designed to help AI agents work with better structure, less noise, and clearer judgment.
+These skills help AI agents work with clearer discipline: inspect before
+acting, preserve user intent, avoid duplicated documentation, mark uncertainty,
+and leave useful context for future humans and AI agents.
 
-This repository is the central catalog for Aetox Skills.
-
-It does not contain the full content of every skill.
-Each major skill lives in its own repository.
-
----
-
-## What Is Aetox?
-
-Aetox is an independent AI systems project by Mike.
-
-It focuses on building useful tools, workflows, and reusable agent skills for software builders who work with AI-assisted development.
-
-Aetox is not trying to be a large framework.
-
-The goal is simple:
-
-> Build practical skills that help humans and AI agents work together with more structure, clarity, and execution power.
-
----
-
-## Why Aetox Skills Exists
-
-AI agents can write code, create documents, plan tasks, and assist with software systems.
-
-But without clear working rules, they often:
-
-* create too many files
-* duplicate information
-* over-document simple tasks
-* mix unrelated responsibilities
-* invent missing details
-* waste context and tokens
-* produce outputs that look complete but are hard to maintain
-
-Aetox Skills exists to give agents reusable behavior patterns.
-
-Each skill should help an agent make better decisions, not just produce more text.
-
----
-
-## Core Principles
-
-Aetox Skills follows these principles:
-
-* Practical over theoretical
-* Clear over clever
-* Small before large
-* Structure without overbuilding
-* Agent behavior over prompt decoration
-* Reusable skills over one-time instructions
-* Human-readable and agent-usable
-* Built by one builder, designed for many agents
-
----
+This repository is the central index for the Aetox skill family. Each major
+skill lives in its own repository.
 
 ## Current Skills
 
-| Skill     | Description                                                                                       | Status | Repository                                             |
-| --------- | ------------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------ |
-| DocStruct | Documentation architecture skill for clear, non-duplicated, token-efficient project documentation | v0.1.x | [docstruct](https://github.com/aetox-skills/docstruct) |
+| Skill | Use when | Repository | Status |
+| --- | --- | --- | --- |
+| Senior Architect Agent | Existing systems, architecture mapping, boundaries, risks, Mermaid diagrams, and AI handoff. | [senior-architect-agent](https://github.com/aetox-skills/senior-architect-agent) | v1.0.0+ |
+| Idea To Architecture Agent | Raw ideas, product concepts, feature requests, and business goals need reviewable architecture proposals. | [idea-to-architecture-agent](https://github.com/aetox-skills/idea-to-architecture-agent) | v0.1.0+ |
+| DocStruct | Project documentation needs clear ownership, one source of truth, less duplication, and lower token cost. | [docstruct](https://github.com/aetox-skills/docstruct) | v0.2.0+ |
 
----
+## Skill Routing
 
-## Skill Categories
+Use the smallest skill that fits the work.
 
-Aetox Skills may grow into several categories:
+- Use `senior-architect-agent` for existing codebases, system mapping,
+  architecture documentation, system boundaries, risks, and AI handoff.
+- Use `idea-to-architecture-agent` for pure raw ideas without an existing
+  implementation.
+- Use `docstruct` for documentation structure, documentation audits, source of
+  truth cleanup, and token-efficient project docs.
 
-### Documentation Skills
+If a task mixes existing system evidence with a proposed future change, start
+with `senior-architect-agent`.
 
-Skills for creating, organizing, auditing, and maintaining project documentation.
+If a task is only about keeping project documentation clear and non-duplicated,
+use `docstruct`.
 
-Current skill:
+## Core Principles
 
-* DocStruct
+- Practical over theoretical.
+- Clear over clever.
+- Small before large.
+- Agent behavior over prompt decoration.
+- Reusable skills over one-time instructions.
+- Human-readable and agent-usable.
+- Markdown as the durable source of truth.
+- Explicit uncertainty instead of hidden assumptions.
 
-### Code Structure Skills
+## Cross-Agent Support
 
-Skills for helping agents understand project architecture, file boundaries, naming, and implementation structure.
+Each skill repository is structured around:
 
-Planned skills:
+- `SKILL.md` as the core instruction file.
+- `agents/openai.yaml` for Codex/OpenAI interface metadata.
+- `INSTALL.md` for Codex, Claude Code, Antigravity, AGENTS.md, and manual
+  installation notes.
+- `adapters/agents-md/AGENTS.example.md` for AGENTS.md-style runtimes.
 
-* CodeStruct
+The goal is not to create a platform. The goal is to make each skill portable
+across modern AI agent environments.
 
-### Prompt and Agent Instruction Skills
+## Install
 
-Skills for writing better agent instructions, task prompts, and reusable command patterns.
-
-Planned skills:
-
-* PromptStruct
-
-### Task and Workflow Skills
-
-Skills for breaking down work, creating handoffs, planning execution, and tracking progress.
-
-Planned skills:
-
-* TaskStruct
-* Agent Handoff
-
----
-
-## How Skills Are Organized
-
-Each major skill should have its own repository.
-
-Example:
+Install each skill from its own repository:
 
 ```txt
-aetox-skills/
-|-- aetox-skills     # central catalog
-|-- docstruct        # documentation architecture skill
-|-- codestruct       # future code structure skill
-|-- promptstruct     # future prompt skill
-`-- taskstruct       # future task workflow skill
+aetox-skills/senior-architect-agent
+aetox-skills/idea-to-architecture-agent
+aetox-skills/docstruct
 ```
 
-This keeps each skill focused and easy to use.
-
-The central catalog links to each skill, explains the overall direction, and tracks the ecosystem.
-
----
-
-## How To Use
-
-Choose the skill that matches the work you want an AI agent to perform.
-
-For example:
-
-Use **DocStruct** when you want an agent to:
-
-* initialize project documentation
-* audit existing docs
-* reduce duplicated Markdown
-* separate frontend, backend, API, and database docs
-* keep documentation concise and useful
-* avoid token-wasting documentation habits
-
-Go to the skill repository and follow its README.
-
----
-
-## Current Roadmap
-
-### v0.1
-
-* Publish the first usable skill: DocStruct
-* Create the Aetox Skills catalog
-* Establish naming, structure, and basic principles
-
-### v0.2
-
-* Improve DocStruct installation and adapters
-* Add agent-specific usage examples
-* Add more practical prompts
-
-### v0.3
-
-* Introduce the next skill candidate
-* Add contribution rules
-* Add shared community health files
-
----
+See each repository's `INSTALL.md` for platform-specific guidance.
 
 ## Not A Bulk Prompt Collection
 
-Aetox Skills is not a dump of random AI prompts.
+Aetox Skills is not a dump of random prompts.
 
 Each skill should have:
 
-* a clear purpose
-* a specific usage context
-* practical rules
-* agent-facing instructions
-* examples or templates when useful
-* a reason to exist as a reusable skill
+- a clear purpose
+- a specific usage context
+- practical operating rules
+- examples or templates when useful
+- a reason to exist as a reusable agent behavior package
 
 If a skill does not improve agent behavior, it does not belong here.
 
----
-
-## Contributing
-
-This project is still early.
-
-For now, contributions should focus on:
-
-* improving clarity
-* reducing unnecessary complexity
-* making skills easier to use
-* adding practical examples
-* finding duplicated or vague instructions
-
-Avoid adding large frameworks, abstract theory, or generic prompt collections.
-
----
-
 ## License
 
-MIT
-
-Copyright (c) Mike and Aetox Skills contributors.
+MIT. See [LICENSE](LICENSE).
