@@ -1,4 +1,4 @@
-# RTK — Rust Token Killer
+# Token Saver ⚡
 
 CLI proxy ที่กรองและย่อ output bash command ก่อนส่งถึง LLM context ประหยัด token **55-90%**
 

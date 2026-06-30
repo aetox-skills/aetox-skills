@@ -21,7 +21,7 @@ raw idea to architecture proposal, and documentation architecture.
 | Idea To Architecture Agent | Raw ideas, product concepts, feature requests, and business goals need reviewable architecture proposals. | [idea-to-architecture-agent](https://github.com/aetox-skills/idea-to-architecture-agent) | v0.1.0+ |
 | DocStruct | Project documentation needs clear ownership, one source of truth, less duplication, and lower token cost. | [docstruct](https://github.com/aetox-skills/docstruct) | v0.2.0+ |
 | Deep Study | ศึกษาอะไรก็ได้ (repo, concept, paper, framework, system) แล้วเขียนตำราให้เข้าใจจริง — Research Pipeline + Knowledge Density 5 ชั้น + Study Plan | [deep-study](https://github.com/aetox-skills/deep-study) | v0.1.0 |
-| RTK | CLI proxy ที่กรอง output bash command ช่วยประหยัด tokens 55-90% สำหรับ git, test, install, find, docker | [rtk](skills/rtk.md) | v0.34.3 |
+| Token Saver | CLI proxy ที่กรอง output bash command ช่วยประหยัด tokens 55-90% สำหรับ git, test, install, find, docker | [token-saver](skills/token-saver.md) | v0.34.3 |
 
 ## Skill Routing
 
