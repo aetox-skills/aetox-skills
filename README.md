@@ -20,6 +20,7 @@ raw idea to architecture proposal, and documentation architecture.
 | Senior Architect Agent | AI architecture skill for existing system mapping, software architecture documentation, boundaries, risks, Mermaid diagrams, and AI agent handoff. | [senior-architect-agent](https://github.com/aetox-skills/senior-architect-agent) | v1.1.0+ |
 | Idea To Architecture Agent | Raw ideas, product concepts, feature requests, and business goals need reviewable architecture proposals. | [idea-to-architecture-agent](https://github.com/aetox-skills/idea-to-architecture-agent) | v0.1.0+ |
 | DocStruct | Project documentation needs clear ownership, one source of truth, less duplication, and lower token cost. | [docstruct](https://github.com/aetox-skills/docstruct) | v0.2.0+ |
+| Deep Study | ศึกษาอะไรก็ได้ (repo, concept, paper, framework, system) แล้วเขียนตำราให้เข้าใจจริง — Research Pipeline + Knowledge Density 5 ชั้น + Study Plan | [deep-study](https://github.com/aetox-skills/deep-study) | v0.1.0 |
 
 ## Skill Routing
 
