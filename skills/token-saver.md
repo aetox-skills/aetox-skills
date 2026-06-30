@@ -1,96 +1,24 @@
-# ⚡ Token Saver — RTK Protocol
+# Token Saver — RTK Protocol
 
-> **AI Agent Protocol:** Load this skill before running any bash command this session.
-> RTK intercepts bash commands and strips noise before output reaches the LLM.
-> **Saves 55-90%** of tokens wasted on progress bars, passed test boilerplate, long file lists.
-> Platform-agnostic: works with OpenCode, Claude Code, Codex, Cursor, Gemini CLI, or any AI coding tool.
+AI agent skill for filtering bash command output before it reaches the LLM context.
+Saves **55-90%** tokens on git, test, install, find, docker, curl, json, and tsc.
+Includes Tee Recovery Protocol for full error output on failures.
 
-## Iron Rules
+| | |
+|---|---|
+| **Repository** | [aetox-skills/token-saver](https://github.com/aetox-skills/token-saver) |
+| **Status** | v0.34.3 |
+| **Use when** | Running any bash command that produces long output |
+| **Platform** | Any AI coding tool (OpenCode, Claude Code, Codex, Cursor, Gemini CLI) |
 
-### ✅ Always use `rtk` prefix
+## Quick Reference
 
-| Command | Use | Reason |
-|---------|-----|--------|
-| `git status/log/diff/add/commit/push` | `rtk git ...` | compresses 53-96% |
-| `pytest`, `cargo test`, `go test`, `jest`, `vitest` | `rtk pytest/cargo test ...` | strip passed boilerplate, show only failures |
-| `npm/pnpm/pip install` | `rtk npm/pnpm/pip install` | progress bars = garbage tokens |
-| `find ...` | `rtk find ...` | tree output instead of flat list |
-| `docker ps/images/build` | `rtk docker ...` | strip SHA/container IDs |
-| `curl ...` | `rtk curl ...` | auto detect JSON → schema output |
-| `json file.json` | `rtk json ...` | compact / keys-only mode |
-| `tsc --noEmit`, `tsc` | `rtk tsc` | large error output (if fail → tee recovery) |
+- **Always use `rtk` prefix:** `git`, `pytest`, `cargo test`, `npm/pip install`, `find`, `docker`, `curl`, `json`, `tsc`
+- **Skip rtk:** `echo`, `cp`, `mv`, `mkdir`, `which`, `Test-Path`, `git diff` (code review)
+- **Bypass:** `rtk proxy <cmd>` for raw output
+- **Tee Recovery:** When command fails → read the tee file for full error output
 
-### ❌ Skip rtk
+## Links
 
-| Command | Reason |
-|---------|--------|
-| `echo`, `cp`, `mv`, `mkdir`, `which`, `Test-Path` | output = 1-2 tokens |
-| `git diff` when reviewing code | need full diff context |
-
-### 🚨 Bypass when raw output needed
-
-```bash
-rtk proxy <cmd>   # passthrough — no filtering, still tracks stats
-```
-
----
-
-## ⚡ Tee Recovery Protocol (CRITICAL)
-
-When a filtered command **fails**, RTK saves the full unfiltered output to a tee file.
-
-```
-1. Run: rtk tsc --noEmit
-2. Output: FAILED: 3 errors  [full output: /path/to/rtk/tee/xxx.log]
-3. AI MUST: Read that file → see full error → fix code
-4. NEVER: guess the error, ignore the tee file, or ask user to re-run
-```
-
-**Tee paths:**
-| OS | Path |
-|----|------|
-| Windows | `C:\Users\<user>\AppData\Local\rtk\tee\` |
-| Linux/Mac | `~/.local/share/rtk/tee/` |
-
-**Config:**
-```toml
-[tee]
-enabled = true
-mode = "failures"
-max_files = 20
-max_file_size = 1048576
-```
-
----
-
-## Agent Workflow
-
-```
-Load skill → About to run bash?
-  ├─ Long output / noise → prefix with rtk
-  ├─ Small output / data → run directly
-  └─ Command failed?
-       ├─ YES → Read tee file → fix from real error
-       └─ NO  → ✓ Tokens saved
-```
-
----
-
-## Prerequisites
-
-```bash
-rtk --version   # must show v0.34.x+
-rtk gain        # check token savings
-```
-
-## Analytics
-
-```bash
-rtk gain              # summary stats
-rtk gain --history    # recent commands
-```
-
----
-
-> **Bottom line:** Spend tokens where it matters (failures → tee recovery)
-> Save where it doesn't (passes → compact). Good agent = uses rtk + recovers from tee.
+- [Full Skill File](https://github.com/aetox-skills/token-saver/blob/main/SKILL.md)
+- [RTK Official](https://github.com/rtk-ai/rtk) (67k⭐)
