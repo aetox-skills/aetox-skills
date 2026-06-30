@@ -33,6 +33,8 @@ Use the smallest skill that fits the work.
   implementation.
 - Use `docstruct` for documentation structure, documentation audits, source of
   truth cleanup, and token-efficient project docs.
+- Use `token-saver` for RTK Protocol — always prefix noise-producing bash
+  commands with `rtk` to save LLM tokens.
 
 If a task mixes existing system evidence with a proposed future change, start
 with `senior-architect-agent`.
@@ -53,13 +55,19 @@ use `docstruct`.
 
 ## Cross-Agent Support
 
-Each skill repository is structured around:
+Each skill repository follows the **standard template** at
+[aetox-skills/skill-template](https://github.com/aetox-skills/skill-template):
 
-- `SKILL.md` as the core instruction file.
-- `agents/openai.yaml` for Codex/OpenAI interface metadata.
-- `INSTALL.md` for Codex, Claude Code, Antigravity, AGENTS.md, and manual
-  installation notes.
-- `adapters/agents-md/AGENTS.example.md` for AGENTS.md-style runtimes.
+| File | Purpose |
+|------|---------|
+| `README.md` | Overview, use cases, quick reference |
+| `SKILL.md` | Core agent instruction file — load with `skill("[name]")` |
+| `INSTALL.md` | Cross-platform setup guide |
+| `CHANGELOG.md` | Version history |
+| `LICENSE` | Apache 2.0 |
+
+To create a new skill, click **"Use this template"** on the
+[skill-template](https://github.com/aetox-skills/skill-template) repo.
 
 The goal is not to create a platform. The goal is to make each skill portable
 across modern AI agent environments.
