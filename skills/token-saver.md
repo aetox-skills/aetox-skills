@@ -1,22 +1,23 @@
 # Token Saver — RTK Protocol
 
 AI agent skill for filtering bash command output before it reaches the LLM context.
-Saves **55-90%** tokens on git, test, install, find, docker, curl, json, and tsc.
+Saves **60-90%** tokens on git, test, install, lint, build, cloud, containers.
+Default-on rule: try `rtk` for any long-output command.
 Includes Tee Recovery Protocol for full error output on failures.
 
 | | |
 |---|---|
 | **Repository** | [aetox-skills/token-saver](https://github.com/aetox-skills/token-saver) |
-| **Status** | v0.1.0 |
-| **Use when** | Running any bash command that produces long output |
-| **Platform** | Any AI coding tool (OpenCode, Claude Code, Codex, Cursor, Gemini CLI) |
+| **Status** | v0.1.2 |
+| **Load with** | `skill("token-saver")` in any AI tool |
+| **Platform** | Any AI coding tool (OpenCode, Claude Code, Codex, Cursor, Gemini CLI, ZCode) |
 
 ## Quick Reference
 
-- **Always use `rtk` prefix:** `git`, `pytest`, `cargo test`, `npm/pip install`, `find`, `docker`, `curl`, `json`, `tsc`
-- **Skip rtk:** `echo`, `cp`, `mv`, `mkdir`, `which`, `Test-Path`, `git diff` (code review)
+- **Default-on:** Any command with long output → prefix with `rtk`
+- **Skip:** `echo`, `cp`, `mv`, `mkdir`, `which`, `git diff` (code review)
 - **Bypass:** `rtk proxy <cmd>` for raw output
-- **Tee Recovery:** When command fails → read the tee file for full error output
+- **Tee Recovery:** On failure → read the tee file for full error output
 
 ## Links
 
