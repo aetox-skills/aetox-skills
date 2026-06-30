@@ -7,7 +7,7 @@ Includes Tee Recovery Protocol for full error output on failures.
 | | |
 |---|---|
 | **Repository** | [aetox-skills/token-saver](https://github.com/aetox-skills/token-saver) |
-| **Status** | v0.34.3 |
+| **Status** | v0.1.0 |
 | **Use when** | Running any bash command that produces long output |
 | **Platform** | Any AI coding tool (OpenCode, Claude Code, Codex, Cursor, Gemini CLI) |
 
