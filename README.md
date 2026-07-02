@@ -35,7 +35,7 @@ raw idea to architecture proposal, and documentation architecture.
 
 | Plugin | What it does | When to use | Repo |
 |:--|:--|:--|:--|
-| **History Trimmer** | OpenCode plugin that trims conversation history intelligently — keeps up to 3 user questions (prioritized), hard cap at 6 messages total. Assistant responses and tool results (which are huge) get trimmed before user messages. **Smarter than blind slice(-6) — saves more tokens because tool results are 10-50× larger than user questions.** | You use OpenCode for long sessions and want history bloat gone without losing what matters. Default: 3 user messages + 6 total cap. | [history-trimmer](https://github.com/aetox-skills/history-trimmer) |
+| **History Trimmer** | OpenCode plugin that trims conversation history intelligently — keeps up to 5 user questions (prioritized), hard cap at 10 total. Assistant responses and tool results get trimmed before user messages. **Saves ~97% vs uncapped history.** | You use OpenCode for long sessions and want history bloat gone without losing what matters. Default: 5 user messages + 10 total cap. | [history-trimmer](https://github.com/aetox-skills/history-trimmer) |
 
 ## Architecture
 
@@ -47,12 +47,12 @@ How all the pieces fit together — from your input to the API call:
 └─────────────────────┬───────────────────────────────┘
                       ▼
 ┌─────────────────────────────────────────────────────┐
-│  ① Plugin: history-trimmer v2                      │
+│  ① Plugin: history-trimmer                       │
 │     hook: experimental.chat.messages.transform      │
 │                                                     │
 │     • system messages → เก็บ ALL                    │
-│     • user messages → เก็บ 3 ล่าสุด                 │
-│     • assistant/tool → เก็บเท่าที่ total ≤ 6        │
+│     • user messages → เก็บ 5 ล่าสุด                 │
+│     • assistant/tool → เก็บเท่าที่ total ≤ 10       │
 │     • tool results โดนตัดก่อน user เสมอ             │
 └─────────────────────┬───────────────────────────────┘
                       ▼
@@ -93,7 +93,7 @@ How all the pieces fit together — from your input to the API call:
 | AGENTS.md | ~3K | 0 | removed |
 | MCP servers | 8 | 4 | commented out |
 | Skills in path | 41 | 4 | moved to library |
-| **History** | **~100K+** | **~3K** | **history-trimmer** |
+| **History** | **~100K+** | **~5K** | **history-trimmer** |
 | Bash output | raw | compressed | **token-saver (RTK)** |
 
 **Result:** ~85% reduction. From ~$0.46/20 calls to ~$0.07/20 calls.
@@ -109,7 +109,7 @@ This table shows what each layer contributes to a single API call:
 | Available skills (7 × name + description) | ~0.3K | ⚠️ minor |
 | MCP tool definitions (4 servers) | ~5–10K | ⚠️ comment out when idle |
 | Agent identity (steward prompt) | ~2K | ✅ AGENTS.md empty |
-| History (3 user + 6 total, role-aware) | ~2–3K | ✅ history-trimmer v2 |
+| History (5 user + 10 total, role-aware) | ~4–5K | ✅ history-trimmer |
 | **Total system prompt** | **~15–22K** | **~60–70% reduction** |
 
 ## Routing
