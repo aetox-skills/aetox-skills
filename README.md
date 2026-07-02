@@ -35,7 +35,7 @@ raw idea to architecture proposal, and documentation architecture.
 
 | Plugin | What it does | When to use | Repo |
 |:--|:--|:--|:--|
-| **History Trimmer** | OpenCode plugin that trims conversation history intelligently — keeps up to 3 user questions (prioritized), hard cap at 6 messages total. Assistant responses and tool results (which are huge) get trimmed before user messages. **Smarter than blind slice(-6) — saves more tokens because tool results are 10-50× larger than user questions.** | You use OpenCode for long sessions and want history bloat gone without losing what matters. Default: 3 user messages + 6 total cap. | [opencode-history-trimmer](https://github.com/aetox-skills/opencode-history-trimmer) |
+| **History Trimmer** | OpenCode plugin that trims conversation history intelligently — keeps up to 3 user questions (prioritized), hard cap at 6 messages total. Assistant responses and tool results (which are huge) get trimmed before user messages. **Smarter than blind slice(-6) — saves more tokens because tool results are 10-50× larger than user questions.** | You use OpenCode for long sessions and want history bloat gone without losing what matters. Default: 3 user messages + 6 total cap. | [history-trimmer](https://github.com/aetox-skills/history-trimmer) |
 
 ## Architecture
 
@@ -124,7 +124,7 @@ Use the smallest tool that fits the work.
 | Need to truly study a topic and produce reference material | `deep-study` |
 | Running noise-producing bash commands (git, test, install) | `token-saver` — prefix with `rtk` |
 | Want to measure and project token costs before a long session | `token-calc` |
-| Long OpenCode session with growing history | `opencode-history-trimmer` — install once |
+| Long OpenCode session with growing history | `history-trimmer` — install once |
 
 ## Core Principles
 
