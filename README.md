@@ -37,6 +37,67 @@ raw idea to architecture proposal, and documentation architecture.
 |:--|:--|:--|:--|
 | **History Trimmer** | OpenCode plugin that trims conversation history intelligently — keeps up to 3 user questions (prioritized), hard cap at 6 messages total. Assistant responses and tool results (which are huge) get trimmed before user messages. **Smarter than blind slice(-6) — saves more tokens because tool results are 10-50× larger than user questions.** | You use OpenCode for long sessions and want history bloat gone without losing what matters. Default: 3 user messages + 6 total cap. | [opencode-history-trimmer](https://github.com/aetox-skills/opencode-history-trimmer) |
 
+## Architecture
+
+How all the pieces fit together — from your input to the API call:
+
+```
+┌─────────────────────────────────────────────────────┐
+│                   Your Input                        │
+└─────────────────────┬───────────────────────────────┘
+                      ▼
+┌─────────────────────────────────────────────────────┐
+│  ① Plugin: history-trimmer v2                      │
+│     hook: experimental.chat.messages.transform      │
+│                                                     │
+│     • system messages → เก็บ ALL                    │
+│     • user messages → เก็บ 3 ล่าสุด                 │
+│     • assistant/tool → เก็บเท่าที่ total ≤ 6        │
+│     • tool results โดนตัดก่อน user เสมอ             │
+└─────────────────────┬───────────────────────────────┘
+                      ▼
+┌─────────────────────────────────────────────────────┐
+│  ② System Prompt Assembly                          │
+│                                                     │
+│     instructions (3 files) → ~3.2K tok              │
+│     agent identity          → ~2K tok               │
+│     available skills (7)    → ~0.3K tok             │
+│     MCP tool defs (4)       → ~5-10K tok            │
+│     built-in tool defs      → ~4K tok               │
+│     history (capped)        → ~2-3K tok             │
+└─────────────────────┬───────────────────────────────┘
+                      ▼
+┌─────────────────────────────────────────────────────┐
+│  ③ Plugin: RTK (token-saver)                      │
+│     hook: tool.execute.before                       │
+│                                                     │
+│     rewrite bash → rtk bash → output บีบ 55-90%    │
+│     (git, test, install, find, curl, tsc...)        │
+└─────────────────────┬───────────────────────────────┘
+                      ▼
+┌─────────────────────────────────────────────────────┐
+│  ④ API (DeepSeek V4 Flash)                        │
+│                                                     │
+│     input: ~18-22K tok/system + history (~3K) + user│
+│     cache hit rate: ~77%                            │
+│     processed (pay): ~5K miss + ~2K output = ~7K    │
+│     cost: ~$0.07 / 20 calls                         │
+└─────────────────────────────────────────────────────┘
+```
+
+### Optimization Summary
+
+| Layer | Before | After | Tool |
+|:--|:--:|:--:|:--|
+| Instructions | ~14K tok | ~3.2K tok | manual trim |
+| AGENTS.md | ~3K | 0 | removed |
+| MCP servers | 8 | 4 | commented out |
+| Skills in path | 41 | 4 | moved to library |
+| **History** | **~100K+** | **~3K** | **history-trimmer** |
+| Bash output | raw | compressed | **token-saver (RTK)** |
+
+**Result:** ~85% reduction. From ~$0.46/20 calls to ~$0.07/20 calls.
+
 ## Token Cost Per Call (approximate)
 
 This table shows what each layer contributes to a single API call:
